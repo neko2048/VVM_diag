@@ -116,7 +116,7 @@ CONTAINS
 !*****************************************************
 !SST=299.88K
 
-      SST = 300.
+      SST = 302.8
       
 !!     initialization for rcemip
 !      filename="/work/peter50504/rcemip_data/snd_rcemip_anal300_v3"
@@ -423,15 +423,23 @@ CONTAINS
       DO 500 J = mjm,mjp
       DO 500 I = mim,mip
       TH3D(I,J,K) = THBAR(K)
-      IF (sqrt(((real(mi1*ni_sbdm+I)-mi_glob/8*3)/32.)**2&
-              !+((real(mi1*ni_sbdm+I)-64)/16.)**2&
-              +((ZT(K)-6000.)/2000.)**2)<=1)THEN
-        TH3D(I,J,K) = TH3D(I,J,K) - 15.*(cos(3.14159265*0.5* &
-                      sqrt(((real(mi1*ni_sbdm+I)-mi_glob/8*3)/32.)**2+ &
-                           !((real(mi1*ni_sbdm+I)-64)/16.)**2+ &
-                           ((ZT(K)-6000.)/2000.)**2)))**2
+!======================== bubble
+      IF (sqrt(((real(MJ1 * ni_sbdm + J) - mj_glob / 2) / 16) ** 2 &
+         +((real(K) - 3.5) / 8.) ** 2 + ((real(MI * ni_sbdm + I) - mi_glob / 2) <= 1) THEN
+        TH3D(I,J,K) = TH3D(I,J,K) + 3. * 0.5 * &
+        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
+        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2)) + 1.)
       ENDIF
+!=======================
       QV3D(I,J,K) = QVBAR(K)
+!======================= bubble
+     IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
+        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2) <= 1) THEN
+        QV3D(I, J, K) = QV3D(I, J, K) + 0.002 * 0.5 * &
+        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
+        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2)) + 1.)
+      ENDIF
+!=======================
       QC3D(I,J,K) = 0.
       QI3D(I,J,K) = 0.
       QR3D(I,J,K) = 0.
