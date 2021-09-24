@@ -1,0 +1,73 @@
+#-----------------------------------------------------------------------------
+# Makefile.host:  defines processor-dependent information
+# This file is intended to be read by GNUmakefile.
+# See the comments in GNUmakefile for more information.
+#
+# This Makefile should define the following variables:
+#
+#     CPP	full path name of the C preprocessor
+#     FC	full path name of the Fortran compiler
+#     LD	full path name of the loader (usually the same as FC)
+#     AR	full path name of the archiver 
+#
+# The following variables may also be defined.  However, you may choose
+# to override these on the make command line (e.g., make 'FFLAGS=-i8' ).
+# You may want to set some of these differently based on whether or not
+# the variable DEBUG is defined (see examples below).
+#
+#     CPPFLAGS	flags to be passed to CPP (for .F files)
+#     SUF	suffix to use for files generated from .F via CPP
+#     FFLAGS	flags to be passed to FC
+#     FIXED	extra option(s) passed to FC to specify fixed source
+#     FREE	extra option(s) passed to FC to specify free  source
+#     LDLIBS	libraries to pass to the loader
+#     LDFLAGS	other flags to pass to the loader
+#
+# You must also define one of the processor flags identifying the 
+# system which will be passed to CPP (see further comments below).
+#
+# This version of Makefile.host uses the name (OS) of the operating system
+# (as returned by the system command uname) to identify which system we're 
+# running on.  The whole file could simply be replaced by a hard-coded 
+# version specific to your current system, or you could check ($HOST), etc.
+#
+# Notes:
+#
+#     Values for OS (operating system) other than Linux and SunOS are 
+#     guesses based on values found in the original makefile (not tested).
+#     This will probably need some tweaking to run on those systems.
+#
+# Author:  Scott R. Fulton
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+# Identify the operating system
+#-----------------------------------------------------------------------------
+OS := $(shell uname)
+
+#-----------------------------------------------------------------------------
+# Linux Cluster, optimized for saddleback
+#-----------------------------------------------------------------------------
+
+CPP 	 = /usr/bin/cpp
+CPPFLAGS = -P -traditional -I$(EXPDIR) -I/work/peter50504/vvmlibs/include 
+#CPPFLAGS = -P -traditional -I$(BINDIR) -I/opt/petsc-intel/include 
+
+SUF      = f
+
+#INC = -I/opt/netcdf4-intel/include -I$(CDECKS) -I/opt/hdf5-intel/include -I/opt/pnetcdf-intel/include -I/opt/petsc-intel/include
+
+INC = -I$(CDECKS) -I$(EXPDIR) -I/opt/ohpc/Taiwania3/libs/i2021-Ompi405/netcdf-4.7.4/include -I/opt/ohpc/Taiwania3/libs/i2021-Ompi405/netcdf-4.7.4/include -I/work/peter50504/vvmlibs/include -I/opt/ohpc/Taiwania3/libs/i2021-Ompi405/pnetcdf-1.12.2/include
+
+
+FC = mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large
+#FC = ${FLINKER} -shared-intel -mcmodel=large
+
+LDLIBS = -Wl,-rpath,/opt/ohpc/Taiwania3/libs/i2021-Ompi405/netcdf-4.7.4/lib -L/opt/ohpc/Taiwania3/libs/i2021-Ompi405/netcdf-4.7.4/lib -lnetcdff -Wl,-rpath,/opt/ohpc/Taiwania3/libs/i2021-Ompi405/pnetcdf-1.12.2/lib -L/opt/ohpc/Taiwania3/libs/i2021-Ompi405/pnetcdf-1.12.2/lib -lpnetcdf -Wl,-rpath,/work/peter50504/vvmlibs/lib -L/work/peter50504/vvmlibs/lib -lpetsc -Wl,-rpath,/opt/ohpc/Taiwania3/libs/i2021-Ompi405/hdf5-1.12/lib -L/opt/ohpc/Taiwania3/libs/i2021-Ompi405/hdf5-1.12/lib -lhdf5 -lhdf5_hl -Wl,-rpath,/opt/ohpc/Taiwania3/pkg/intel/2021/mkl/2021.1.1/lib/intel64 -L/opt/ohpc/Taiwania3/pkg/intel/2021/mkl/2021.1.1/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential 
+
+
+FFLAGS    = $(INC)
+FIXED     = -fixed 
+FREE      = -free
+LD        = $(FC)
+
