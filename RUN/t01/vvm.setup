@@ -71,6 +71,8 @@ cat > definesld.com << 'END1'
 #define PERIODIC
 #define PHYSICS
 #define DIAG
+#define DIFFUSION
+#define MICROCODE
 'END1'
 cat definesld.com
 
