@@ -1,0 +1,305 @@
+set expname = W08_20K
+set compiler = intel_jet
+set jobsys = pbs_jet
+set vvmdir = ` pwd | rev | cut -c 9- | rev `
+rev
+rev
+cut -c 9-
+pwd
+set datadir = /data3/atmenu10246/VVM/DATA
+set rundir = /data3/atmenu10246/VVM/RUN
+set expdir = /data3/atmenu10246/VVM/DATA/W08_20K
+set codedir = /data3/atmenu10246/VVM/DATA/W08_20K/CODE
+cd /data3/atmenu10246/VVM/DATA/W08_20K/compile_code
+make RUNDIR=/data3/atmenu10246/VVM/RUN CASENAME=W08_20K CODEDIR=/data3/atmenu10246/VVM/DATA/W08_20K/CODE EXPDIR=/data3/atmenu10246/VVM/DATA/W08_20K COMPILER=intel_jet -f /data3/atmenu10246/VVM/RUN/makefile -j8
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks/CONST3D.F90 > ./CONST3D.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks/CONSTLD.F90 > ./CONSTLD.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks/CLDINFO.F90 > ./CLDINFO.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks/PROFOUTLD.F90 > ./PROFOUTLD.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks/RADOUTLD.F90 > ./RADOUTLD.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks/TIMEINFO.F90 > ./TIMEINFO.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks/TIMEINTERP.F90 > ./TIMEINTERP.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks/workcom.F90 > ./workcom.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./workcom.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./CONST3D.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./CONSTLD.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./CLDINFO.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./PROFOUTLD.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./RADOUTLD.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./TIMEINFO.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./TIMEINTERP.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/parkind.f90 > ./parkind.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_vsn.f90 > ./rrsw_vsn.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/shr_kind_mod.f90 > ./shr_kind_mod.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rad_error.f90 > ./rad_error.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/domain_decomposition.F > ./domain_decomposition.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/timer.F > ./timer.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/physics_v10d.f90 > ./physics_v10d.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/module_mp_p3.F > ./module_mp_p3.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_vsn.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./parkind.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./shr_kind_mod.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rad_error.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./domain_decomposition.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./timer.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./physics_v10d.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_mp_p3.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/kwm_date_utilities.F > ./kwm_date_utilities.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_netcdf_io.F > ./module_netcdf_io.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_noahlsm_utility.F > ./module_noahlsm_utility.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_model_constants.F > ./module_model_constants.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./kwm_date_utilities.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_netcdf_io.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/z_coord.F > ./z_coord.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_noahlsm_utility.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_model_constants.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/ras_module.F > ./ras_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./z_coord.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./ras_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/vertical_adaptive.F > ./vertical_adaptive.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/parrrtm.f90 > ./parrrtm.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./vertical_adaptive.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_cld.f90 > ./rrlw_cld.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./parrrtm.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_con.f90 > ./rrlw_con.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_cld.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_con.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg01.f90 > ./rrlw_kg01.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg02.f90 > ./rrlw_kg02.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg01.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg03.f90 > ./rrlw_kg03.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg04.f90 > ./rrlw_kg04.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg02.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg03.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg05.f90 > ./rrlw_kg05.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg04.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg05.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg06.f90 > ./rrlw_kg06.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg07.f90 > ./rrlw_kg07.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg08.f90 > ./rrlw_kg08.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg06.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg09.f90 > ./rrlw_kg09.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg07.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg10.f90 > ./rrlw_kg10.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg08.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg09.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg10.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg11.f90 > ./rrlw_kg11.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg11.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg12.f90 > ./rrlw_kg12.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg13.f90 > ./rrlw_kg13.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg14.f90 > ./rrlw_kg14.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg15.f90 > ./rrlw_kg15.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg12.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg13.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg14.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg15.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_kg16.f90 > ./rrlw_kg16.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_kg16.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_ncpar.f90 > ./rrlw_ncpar.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_ref.f90 > ./rrlw_ref.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_tbl.f90 > ./rrlw_tbl.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_vsn.f90 > ./rrlw_vsn.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_ncpar.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_ref.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_tbl.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_vsn.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrlw_wvn.f90 > ./rrlw_wvn.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrlw_wvn.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/rrtm_grid.f90 > ./rrtm_grid.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/parrrsw.f90 > ./parrrsw.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_cld.f90 > ./rrsw_cld.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_con.f90 > ./rrsw_con.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtm_grid.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./parrrsw.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_cld.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_con.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_ncpar.f90 > ./rrsw_ncpar.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_ncpar.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_ref.f90 > ./rrsw_ref.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_tbl.f90 > ./rrsw_tbl.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_wvn.f90 > ./rrsw_wvn.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_vrtqdr.f90 > ./rrtmg_sw_vrtqdr.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_ref.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_tbl.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_wvn.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_vrtqdr.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/shr_orb_mod.f90 > ./shr_orb_mod.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rad.f90 > ./rad.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./shr_orb_mod.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/rrtm_params.f90 > ./rrtm_params.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/rrtm_vars.f90 > ./rrtm_vars.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rad.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtm_params.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtm_vars.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/bound.F > ./bound.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./bound.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/utils.F > ./utils.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/gather_scatter.F > ./gather_scatter.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_ascii_io.F > ./module_ascii_io.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_sf_noahlsm.F > ./module_sf_noahlsm.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./utils.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./gather_scatter.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_ascii_io.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_sf_noahlsm.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_sfcdif_wrf.F > ./module_sfcdif_wrf.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/update_tracer_module.F > ./update_tracer_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_sfcdif_wrf.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./update_tracer_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/make_profiles_module.F > ./make_profiles_module.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/nudge_module.F > ./nudge_module.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/force_3d_module.F > ./force_3d_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./make_profiles_module.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./nudge_module.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./force_3d_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/time_interp_module.F > ./time_interp_module.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_setcoef.f90 > ./rrtmg_lw_setcoef.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_read_nc.f90 > ./rrtmg_lw_read_nc.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_setcoef.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./time_interp_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_cldprmc.f90 > ./rrtmg_lw_cldprmc.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_read_nc.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_cldprmc.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_cldprop.f90 > ./rrtmg_lw_cldprop.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_rtrn.f90 > ./rrtmg_lw_rtrn.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_cldprop.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_rtrn.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_rtrnmc.f90 > ./rrtmg_lw_rtrnmc.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_rtrnmc.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_rtrnmr.f90 > ./rrtmg_lw_rtrnmr.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_rtrnmr.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_taumol.f90 > ./rrtmg_lw_taumol.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_aer.f90 > ./rrsw_aer.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg16.f90 > ./rrsw_kg16.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg17.f90 > ./rrsw_kg17.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_taumol.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_aer.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg16.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg17.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg18.f90 > ./rrsw_kg18.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg19.f90 > ./rrsw_kg19.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg20.f90 > ./rrsw_kg20.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg18.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg19.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg20.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg21.f90 > ./rrsw_kg21.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg22.f90 > ./rrsw_kg22.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg21.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg23.f90 > ./rrsw_kg23.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg22.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg24.f90 > ./rrsw_kg24.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg23.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg24.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg25.f90 > ./rrsw_kg25.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg26.f90 > ./rrsw_kg26.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg25.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg26.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg27.f90 > ./rrsw_kg27.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg28.f90 > ./rrsw_kg28.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg27.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrsw_kg29.f90 > ./rrsw_kg29.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg28.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_setcoef.f90 > ./rrtmg_sw_setcoef.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrsw_kg29.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_setcoef.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_cldprmc.f90 > ./rrtmg_sw_cldprmc.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_cldprop.f90 > ./rrtmg_sw_cldprop.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_reftra.f90 > ./rrtmg_sw_reftra.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_cldprmc.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_cldprop.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_reftra.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_taumol.f90 > ./rrtmg_sw_taumol.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_taumol.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/cam_rad_parameterizations.f90 > ./cam_rad_parameterizations.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./cam_rad_parameterizations.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/trace_gases.f90 > ./trace_gases.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./trace_gases.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/update_thermo_module.F > ./update_thermo_module.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/damping.F > ./damping.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./update_thermo_module.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./damping.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/petsc_vvm_solver.F > ./petsc_vvm_solver.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/turb_1d_module.F > ./turb_1d_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./turb_1d_module.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./petsc_vvm_solver.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_io.F > ./module_io.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_io.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_sf_noahlsm_glacial_only.F > ./module_sf_noahlsm_glacial_only.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_sf_noahlsm_glacial_only.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/buoyf_module.F > ./buoyf_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./buoyf_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/q_chk_module.F > ./q_chk_module.f
+./module_sf_noahlsm_glacial_only.f(24): warning #6843: A dummy argument with an explicit INTENT(OUT) declaration is not given an explicit value.   [EMBRD]
+       &                   ALB, SNOALB,TBOT, Z0BRD, Z0, EMISSI, EMBRD,  &    !S
+----------------------------------------------------------------^
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./q_chk_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/advec_3d_module.F > ./advec_3d_module.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/ldoutput.F > ./ldoutput.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./advec_3d_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_init.f90 > ./rrtmg_lw_init.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./ldoutput.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_init.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_read_nc.f90 > ./rrtmg_sw_read_nc.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_read_nc.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/cldefrint.f90 > ./cldefrint.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./cldefrint.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/cloud_module.F > ./cloud_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./cloud_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/vort_3d_module.F > ./vort_3d_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./vort_3d_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/elliptic.F > ./elliptic.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./elliptic.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/LSM/module_simple_driver.F > ./module_simple_driver.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./module_simple_driver.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_init.f90 > ./rrtmg_sw_init.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_init.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_spcvmc.f90 > ./rrtmg_sw_spcvmc.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_spcvmc.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_spcvrt.f90 > ./rrtmg_sw_spcvrt.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_spcvrt.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/uvtop.F > ./uvtop.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./uvtop.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/land_module.F > ./land_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./land_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/wind_module.F > ./wind_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./wind_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/turb_3d_module.F > ./turb_3d_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./turb_3d_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/output_nc.F > ./output_nc.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./output_nc.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/new_output_nc.F > ./new_output_nc.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./new_output_nc.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_sw_rad.f90 > ./rrtmg_sw_rad.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_sw_rad.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rrtmg_lw_rad.f90 > ./rrtmg_lw_rad.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rrtmg_lw_rad.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/ini_3d_module.F > ./ini_3d_module.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/ldoutput_nc.F > ./ldoutput_nc.f
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/new_ldoutput_nc.F > ./new_ldoutput_nc.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./ini_3d_module.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./ldoutput_nc.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./new_ldoutput_nc.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/ldinput.F > ./ldinput.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./ldinput.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/time_manager_module.F > ./time_manager_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./time_manager_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rad_driver.f90 > ./rad_driver.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rad_driver.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/RRTMG/RAD_RRTM_CFMIP/rad_full.f90 > ./rad_full.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rad_full.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/radiation_rrtmg.f90 > ./radiation_rrtmg.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./radiation_rrtmg.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/physics_interface.f90 > ./physics_interface.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./physics_interface.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/rcalc_module.F > ./rcalc_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./rcalc_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W08_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W08_20K/CODE/ab_3d_module.F > ./ab_3d_module.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W08_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W08_20K -free   ./ab_3d_module.f 
+/usr/bin/cpp -P -traditional -I/data3/atmenu10246/VVM/DATA/W16_20K -I/opt/vvmlibs/include  /data3/atmenu10246/VVM/DATA/W16_20K/CODE/ldmain.F > ./ldmain.f
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large -c -I/opt/vvmlibs/include -I/data3/atmenu10246/VVM/DATA/W16_20K/CODE/cdecks -I/data3/atmenu10246/VVM/DATA/W16_20K -free   ./ldmain.f 
+/opt/vvmlibs/bin/mpifort -fPIC -O3 -heap-arrays 10 -shared-intel -mcmodel=large  PARMSLD.o CONST3D.o CONSTLD.o CLDINFO.o PROFOUTLD.o RADOUTLD.o TIMEINFO.o TIMEINTERP.o workcom.o parkind.o parrrtm.o rrlw_cld.o rrlw_con.o rrlw_kg01.o rrlw_kg02.o rrlw_kg03.o rrlw_kg04.o rrlw_kg05.o rrlw_kg06.o rrlw_kg07.o rrlw_kg08.o rrlw_kg09.o rrlw_kg10.o rrlw_kg11.o rrlw_kg12.o rrlw_kg13.o rrlw_kg14.o rrlw_kg15.o rrlw_kg16.o rrlw_ncpar.o rrlw_ref.o rrlw_tbl.o rrlw_vsn.o rrlw_wvn.o rrtmg_lw_setcoef.o rrtmg_lw_read_nc.o rrtmg_lw_cldprmc.o rrtmg_lw_cldprop.o rrtmg_lw_init.o rrtmg_lw_rtrn.o rrtmg_lw_rtrnmc.o rrtmg_lw_rtrnmr.o rrtmg_lw_taumol.o rrtmg_lw_rad.o parrrsw.o rrsw_aer.o rrsw_cld.o rrsw_con.o rrsw_kg16.o rrsw_kg17.o rrsw_kg18.o rrsw_kg19.o rrsw_kg20.o rrsw_kg21.o rrsw_kg22.o rrsw_kg23.o rrsw_kg24.o rrsw_kg25.o rrsw_kg26.o rrsw_kg27.o rrsw_kg28.o rrsw_kg29.o rrsw_ncpar.o rrsw_ref.o rrsw_tbl.o rrsw_vsn.o rrsw_wvn.o rrtmg_sw_setcoef.o rrtmg_sw_read_nc.o rrtmg_sw_cldprmc.o rrtmg_sw_cldprop.o rrtmg_sw_init.o rrtmg_sw_reftra.o rrtmg_sw_taumol.o rrtmg_sw_vrtqdr.o rrtmg_sw_spcvmc.o rrtmg_sw_spcvrt.o rrtmg_sw_rad.o shr_kind_mod.o shr_orb_mod.o cam_rad_parameterizations.o cldefrint.o rad_error.o rad.o rad_driver.o rad_full.o rrtm_grid.o rrtm_params.o rrtm_vars.o trace_gases.o physics_interface.o physics_v10d.o radiation_rrtmg.o kinds.o ab_3d_module.o advec_3d_module.o bound.o buoyf_module.o cloud_module.o elliptic.o petsc_vvm_solver.o force_3d_module.o gather_scatter.o ldinput.o ini_3d_module.o z_coord.o ldoutput.o make_profiles_module.o nudge_module.o module_mp_p3.o ras_module.o q_chk_module.o rcalc_module.o time_interp_module.o time_manager_module.o land_module.o turb_3d_module.o turb_1d_module.o update_thermo_module.o update_tracer_module.o uvtop.o utils.o damping.o vort_3d_module.o wind_module.o domain_decomposition.o timer.o output_nc.o ldoutput_nc.o new_output_nc.o new_ldoutput_nc.o ldmain.o vertical_adaptive.o kwm_date_utilities.o module_ascii_io.o module_io.o module_model_constants.o module_netcdf_io.o module_noahlsm_utility.o module_sfcdif_wrf.o module_sf_noahlsm.o module_sf_noahlsm_glacial_only.o module_simple_driver.o -o /data3/atmenu10246/VVM/DATA/W16_20K/vvm -Wl,-rpath,/opt/vvmlibs/lib -L/opt/vvmlibs/lib -lnetcdff -lnetcdf -lpnetcdf -lhdf5_hl -lhdf5 -lpetsc -L/opt/intel/mkl/lib/intel64 -L/opt/vvmlibs/lib -L/opt/intel/composer_xe_2011_sp1.7.256/compiler/lib/intel64 -L/opt/intel/composer_xe_2011_sp1.7.256/mkl/lib/intel64 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lX11 -lhdf5_hl -lhdf5 -lstdc++ -ldl -lmpifort -lmpi -lifport -lifcore -limf -lsvml -lm -lipgo -lirc -lpthread -lgcc_s -lirc_s -lstdc++ -ldl  
+sed -e s/expname.out/W16_20K.out/g -e s/expname.err/W16_20K.err/g -e s/expname/W16_20K/g -e s/walltime/00:30:00/g -e s/np_nodes/4/g -e s/np_threads/16/g -e s/total_cores/64/g /data3/atmenu10246/VVM/RUN/run.sh.pbs_jet
+cd /data3/atmenu10246/VVM/DATA/W16_20K
+qsub run.sh
+17113.jet.as.ntu.edu.tw
+exit
