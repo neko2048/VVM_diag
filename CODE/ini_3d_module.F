@@ -422,17 +422,13 @@ CONTAINS
       DO 500 K = 1, NK3
       DO 500 J = mjm,mjp
       DO 500 I = mim,mip
-      TH3D(I,J,K) = THBAR(K)
-!======================== bubble
-! ball shape
-!      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 & ! hi_reso: r stretching = 16
-!        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2) <= 1) THEN
-!        TH3D(I, J, K) = TH3D(I, J, K) + 3. * 0.5 * &
-!        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
-!        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2)) + 1.)
-!      ENDIF
-! MJ1*nj_sbdm+J: position in y, mj_glob: domain length in y
-! (real(K) -10)
+      TH3D(I, J, K) = THBAR(K)
+      IF (K <= 15) THEN
+        IF (COS(2. * 3.1415926 * REAL(MI1*ni_sbdm + I) / 40) * & COS(2. * 3.1415926 * REAL(MJ1*nj_sbdm + J) / 40) > 0.) THEN
+            TH3D(I, J, K) = TH3D(I, J, K) + 5 * COS(2. * 3.1415926 * REAL(MI1*ni_sbdm + I) / 40) * &
+            COS(2. * 3.1415926 * REAL(MJ1*nj_sbdm + J) / 40)
+        ENDIF
+      ENDIF
 !=======================
       QV3D(I,J,K) = QVBAR(K)
 !======================= bubble
