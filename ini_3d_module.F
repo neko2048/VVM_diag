@@ -111,7 +111,7 @@ CONTAINS
 !*****************************************************
 !SST=299.88K
 
-      SST = 302.8
+      SST = 299.88
       
 !!     initialization for rcemip
 !      filename="/work/peter50504/rcemip_data/snd_rcemip_anal300_v3"
@@ -405,6 +405,13 @@ CONTAINS
       endif
 
 
+      !! isentropic environment
+      !THBAR=THBAR(2)
+      !RHO=1.
+      !RHOZ=1.
+      !RHOU=1.
+      !RHOT=1.
+      !RHOW=1.
 
 !      IF (MY_TASK .EQ. 0) PRINT*,(K,ZT(K),DZ/FNT(K),K=1,NK2)
 !      IF (MY_TASK .EQ. 0) PRINT*,(K,ZZ(K),DZ/FNZ(K),K=1,NK2)
@@ -418,17 +425,17 @@ CONTAINS
       DO 500 J = mjm,mjp
       DO 500 I = mim,mip
       TH3D(I,J,K) = THBAR(K)
-      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
+      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 8) ** 2 &
         +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 8) ** 2) <= 1) THEN
-      TH3D(I,J,K) = TH3D(I,J,K) + 3. * 0.5 * &
-        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
+        TH3D(I,J,K) = TH3D(I,J,K) + 3. * 0.5 * &
+        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 8) ** 2 &
         +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 8) ** 2)) + 1.)
       ENDIF
       QV3D(I,J,K) = QVBAR(K)
-      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
+      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 8) ** 2 &
         +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 8) ** 2) <= 1) THEN
-      QV3D(I,J,K) = QV3D(I,J,K) + 0.002 * 0.5 * &
-        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
+        QV3D(I,J,K) = QV3D(I,J,K) + 0.002 * 0.5 * &
+        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 8) ** 2 &
         +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 8) ** 2)) + 1.)
       ENDIF
       QC3D(I,J,K) = 0.
@@ -503,8 +510,8 @@ CONTAINS
       Z3DZ(I,J,K)=0.
 !      U3DX(I,J,K)=UG(K)
 !      U3DY(I,J,K)=VG(K)
-      U3DX(I,J,K)=0.
-      U3DY(I,J,K)=0.
+      U3DX(I,J,K)=-8.
+      U3DY(I,J,K)=2.
   610 CONTINUE
 
       DO 660 K = 2, NK1
@@ -518,7 +525,7 @@ CONTAINS
 
       CALL petsc_solver_initialize(petsc_cr)
 
-      restart_read: IF (.false.)THEN
+      restart_read: IF (.true.)THEN
 
 !   restart( thermodynamic_file (absolute path) , hydrometer , 
 !            dynamic_variables , {optional} dynamic_file (absolute path) )
@@ -531,11 +538,11 @@ CONTAINS
 !        >>>> read all dynamic variables
 !   If dynamic_variables is true, dynamic_file should be defined.  By Der 20190128
 
-      thermodynamic_file = "/work/peter50504/VVM/DATA/tcvvm_qobs_large_uras/archive/&
-              &tcvvm_qobs_large_uras.L.Thermodynamic-000030.nc"
+      thermodynamic_file = "/data3/der0318/VVM/DATA/gate_restart_n/archive/&
+              &gate_restart_n.L.Thermodynamic-000036.nc"
 
-      dynamic_file = "/work/peter50504/VVM/DATA/tcvvm_qobs_large_uras/archive/&
-              &tcvvm_qobs_large_uras.L.Dynamic-000030.nc" 
+      dynamic_file = "/data3/der0318/VVM/DATA/gate_restart_n/archive/&
+              &gate_restart_n.L.Dynamic-000036.nc" 
 
       write(*,*) trim(thermodynamic_file), trim(dynamic_file)
 
