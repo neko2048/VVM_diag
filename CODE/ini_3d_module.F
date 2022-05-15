@@ -51,7 +51,7 @@ CONTAINS
          scaleq=0._dbl_kind, & !
          rkappa,             &
          rkappai,            &
-         gamfac, a0, z00, xr, yr, zr, dist,tmp
+         gamfac, a0, z00, xr, yr, zr, dist,tmp,ESI,ESW
       REAL (KIND=dbl_kind), PARAMETER :: th00 = 300._dbl_kind      
       REAL (KIND=dbl_kind), PARAMETER :: rgas = 287.04     
       REAL (KIND=dbl_kind), PARAMETER :: rad1 = -2.    
@@ -77,30 +77,15 @@ CONTAINS
              ,750.0,700.0,650.0,600.0,550.0,500.0,450.0,400.0,350.0 &
              ,300.0,250.0,225.0,200.0,175.0,150.0,125.0,100.0,70.0 &
              ,50./
-!      DATA T1/301.246,299.169,297.515,296.35,295.014,293.752,292.521,291.309,290.106 &
-!             ,288.867,287.545,284.466,280.821,276.82,272.996,268.835,263.996,258.415 &
-!             ,251.848,243.709,233.844,228.075,221.699,214.639,206.84,198.676,191.745 &
-!             ,194.587,206.771/
-!      DATA QV1/0.0179026,0.0174521,0.0164586,0.0150866,0.013841,0.0124337,0.0110566 &
-!              ,0.00974031,0.00858361,0.00759569,0.00676534,0.00555704,0.00457475,0.00363432 &
-!              ,0.00280347,0.00208696,0.00147428,0.000984061,0.000624419,0.000359956,0.000167552 &
-!              ,0.000100977,5.50747e-05,2.7595e-05,1.2715e-05,5.39508e-06,2.6389e-06,2.24212e-06 &
-!              ,2.29645e-06/
-      DATA QV1/1.57610104e-02, 1.54799492e-02, 1.49226580e-02, 1.35172856e-02, &
-               1.22078812e-02, 1.10379358e-02, 9.79417677e-03, 8.36757598e-03, &
-               6.71931951e-03, 5.33991730e-03, 4.34738671e-03, 3.31664914e-03, &
-               2.46294623e-03, 1.80273025e-03, 1.32476149e-03, 9.66748079e-04, &
-               7.01444991e-04, 4.91214466e-04, 3.17313725e-04, 1.82476346e-04, &
-               8.56851072e-05, 5.34241700e-05, 3.18074765e-05, 1.84193633e-05, &
-               9.98884671e-06, 4.79963694e-06, 2.58620556e-06, 2.20471269e-06, &
-               2.21984944e-06/
- 
-      DATA T1/299.05390369, 296.9465792, 295.02124478, 293.65958441, 292.22232719 &
-            , 290.78228065, 289.46400098, 288.37816732, 287.71351968, 287.03580155 &
-            , 286.08512576, 283.28423399, 280.0745829, 276.44141078, 272.60438379 &
-            , 268.24419588, 263.07084366, 256.97750374, 249.8587787, 241.32126007 &
-            , 231.37697459, 225.73031741, 219.58453282, 212.94618772, 205.84405873 &
-            , 198.5526019, 193.40443563, 199.13108312, 206.95087902/
+      DATA T1/301.246,299.169,297.515,296.35,295.014,293.752,292.521,291.309,290.106 &
+             ,288.867,287.545,284.466,280.821,276.82,272.996,268.835,263.996,258.415&
+             ,251.848,243.709,233.844,228.075,221.699,214.639,206.84,198.676,191.745&
+             ,194.587,206.771/
+      DATA QV1/0.0179026,0.0174521,0.0164586,0.0150866,0.013841,0.0124337,0.0110566 &
+              ,0.00974031,0.00858361,0.00759569,0.00676534,0.00555704,0.00457475,0.00363432 &
+              ,0.00280347,0.00208696,0.00147428,0.000984061,0.000624419,0.000359956,0.000167552 &
+              ,0.000100977,5.50747e-05,2.7595e-05,1.2715e-05,5.39508e-06,2.6389e-06,2.24212e-06&
+              ,2.29645e-06/
       DATA QC1/29*0./
 
       REAL (KIND=dbl_kind) ::  Q1OBS(20),Q2OBS(20)
@@ -111,6 +96,8 @@ CONTAINS
 !     U1 IS FOR CASE C4, 11 SEP 1974, DURING GATE, A SQUALL CLUSTER
 !     SEE FIG. 17, SUI & YANAI, JAS, 43, 1618-1642.
 !     PU1 (MB) , U1(M/S)
+
+
 
       REAL (KIND=dbl_kind) ::  PU1(6),U1(6),V1(6)
       DATA PU1/1006.7, 993.8, 828.5, 581.3, 543.9, 161.6 /
@@ -131,7 +118,7 @@ CONTAINS
 !*****************************************************
 !SST=299.88K
 
-      SST = 302.8
+      SST = 298.13
       
 !!     initialization for rcemip
 !      filename="/work/peter50504/rcemip_data/snd_rcemip_anal300_v3"
@@ -375,6 +362,45 @@ CONTAINS
       VG(1)   = VG(2)
       VG(NK3) = VG(NK2)
 
+!ccwu Taipei TSA sounding
+
+      do  K = 1, NK3
+      IF (ZT(K) .LT. 3000.) THEN
+        THBAR(K) = 298.13 + 5.2E-3 * ZT(K)
+      ELSEIF (ZT(K) .LT. 8000.) THEN
+        THBAR(K) = THBAR(K-1)+4.7E-3*(ZT(K)-ZT(K-1))
+      ELSEIF (ZT(K) .LT. 13000.) THEN
+        THBAR(K) = THBAR(K-1)+3.4E-3*(ZT(K)-ZT(K-1))
+      ELSE
+        THBAR(K) = THBAR(K-1)+10.9E-3*(ZT(K)-ZT(K-1))
+      ENDIF
+
+      T(K) = THBAR(K) * PIBAR(K)
+      ESW = 611.2*EXP(17.67*(T(K)-273.15)/(T(K)-29.65))
+      ESI = 611.2*EXP(21.8745584*(T(K)-273.15)/(T(K)-7.66))
+      IF (T(K) .LE. 233.15) THEN
+        ES1 = ESI
+      ELSE IF (T(K) .LT. 273.15) THEN
+        ES1 = ( ESI*(273.15-T(K)) + ESW*(T(K)-233.15) )/40.0
+      ELSE
+        ES1 = ESW
+      ENDIF
+      QVSBAR(K) = ES1 * 0.622 / ( PBAR(K) - ES1 )
+!CCCCCCCCCCCCCCCCCC
+      IF (ZT(K) .LE. 1500) THEN
+        H(K) = 0.82
+      ELSE IF (ZT(K) .LE. 12000) THEN
+        H(K) = (ZT(K)-8000)**2/132031250.+0.5
+      ELSE
+        H(K) = 0.50
+      END IF
+!CCCCCCCCCCCCCCCCCC
+      QVBAR(K) = H(K) * QVSBAR(K)
+
+      ENDDO 
+
+
+
 !     OCEAN POINTS
 
       DO 300 J = mjm,mjp
@@ -438,38 +464,25 @@ CONTAINS
       DO 500 J = mjm,mjp
       DO 500 I = mim,mip
       TH3D(I,J,K) = THBAR(K)
-      IF (K <= 5) THEN
-        IF (COS(2. * 3.1415926 * REAL(MI1*ni_sbdm + I) / 40) * & COS(2. * 3.1415926 * REAL(MJ1*nj_sbdm + J) / 40) > 0.) THEN
-            TH3D(I, J, K) = TH3D(I, J, K) + 5 * (COS(2. * 3.1415926 * REAL(MI1*ni_sbdm + I) / 40) * &
-            COS(2. * 3.1415926 * REAL(MJ1*nj_sbdm + J) / 40) * SIN(3.1415926 / 2. * REAL((5-K))/5.))
-        ENDIF
-      ENDIF
 !======================== bubble
 ! ball shape
-!      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 & ! hi_reso: r stretching = 16
-!        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2) <= 1) THEN
-!        TH3D(I, J, K) = TH3D(I, J, K) + 3. * 0.5 * &
-!        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
-!        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2)) + 1.)
-!      ENDIF
+      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 8) ** 2 & ! hi_reso: r stretching = 16
+        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 8) ** 2) <= 1) THEN
+        TH3D(I, J, K) = TH3D(I, J, K) + 3. * 0.5 * &
+        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 8) ** 2 &
+        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 8) ** 2)) + 1.)
+      ENDIF
 ! MJ1*nj_sbdm+J: position in y, mj_glob: domain length in y
 ! (real(K) -10)
 !=======================
       QV3D(I,J,K) = QVBAR(K)
-      IF (K <= 5) THEN
-        IF (COS(2. * 3.1415926 * REAL(MI1*ni_sbdm + I) / 40) * & COS(2. * 3.1415926 * REAL(MJ1*nj_sbdm + J) / 40) > 0.) THEN
-            QV3D(I, J, K) = QV3D(I, J, K) + 0.002 * (COS(2. * 3.1415926 * REAL(MI1*ni_sbdm + I) / 40) * &
-            COS(2. * 3.1415926 * REAL(MJ1*nj_sbdm + J) / 40) * SIN(3.1415926 / 2. * REAL((5-K))/5.))
-        ENDIF
-      ENDIF
-
 !======================= bubble
-!      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
-!        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2) <= 1) THEN
-!        QV3D(I, J, K) = QV3D(I, J, K) + 0.002 * 0.5 * &
-!        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 16) ** 2 &
-!        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 16) ** 2)) + 1.)
-!      ENDIF
+      IF (sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 8) ** 2 &
+        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 8) ** 2) <= 1) THEN
+        QV3D(I, J, K) = QV3D(I, J, K) + 0.002 * 0.5 * &
+        (cos(3.1415926 * sqrt(((real(MJ1*nj_sbdm+J)-mj_glob/2) / 8) ** 2 &
+        +((real(K)-3.5)/8.) ** 2 + ((real(MI1*ni_sbdm+I)-mi_glob/2) / 8) ** 2)) + 1.)
+      ENDIF
 !=======================
       QC3D(I,J,K) = 0.
       QI3D(I,J,K) = 0.
@@ -898,8 +911,6 @@ CONTAINS
       STOP
       ENDIF
    
-      ! eta
-      nc_err = nfmpi_inq_varid(ncid,'eta',varid)
       nc_err = nfmpi_get_vara_double_all(ncid,varid,arraystart, &
                readlen,Z3DY(1:MI1,1:MJ1,1:NK2))
       IF (nc_err/=0)THEN
